@@ -22,12 +22,12 @@ RUN mv apache-flume-${version}-bin ${FLUME_HOME}
 RUN cp ${FLUME_HOME}/conf/log4j.properties ${FLUME_HOME}/log4j.properties
 # ADD hdfs s3 dependencies
 ADD pom.xml ${FLUME_HOME}/pom.xml
-ADD agent_conf/simple.conf ${FLUME_HOME}/conf/simple.conf
+ADD agent_conf/httpsource.conf ${FLUME_HOME}/conf/httpsource.conf
 ADD flume-env.sh ${FLUME_HOME}/conf/flume-env.sh
 
 WORKDIR ${FLUME_HOME}
 RUN mvn process-sources
 
-CMD [ "sh","-c", "./bin/flume-ng agent -n a1 -c conf -f conf/simple.conf -Dlog4j.configuration=log4j.properties -Dflume.monitoring.type=http -Dflume.monitoring.port=44123" ]
+CMD [ "sh","-c", "./bin/flume-ng agent -n a1 -c conf -f conf/httpsource.conf -Dlog4j.configuration=log4j.properties -Dflume.monitoring.type=http -Dflume.monitoring.port=44123" ]
 
 
